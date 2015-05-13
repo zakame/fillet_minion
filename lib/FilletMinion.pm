@@ -8,6 +8,9 @@ sub startup {
   # Documentation browser under "/perldoc"
   $self->plugin('PODRenderer');
 
+  # Minion job queue
+  $self->plugin( Minion => { File => $self->home->rel_file('fm.db') } );
+
   # Router
   my $r = $self->routes;
 
