@@ -10,6 +10,12 @@ sub startup {
 
   # Minion job queue
   $self->plugin( Minion => { File => $self->home->rel_file('fm.db') } );
+  $self->minion->add_task(
+    send_load => sub {
+      my $job = shift;
+      $job->app->log->debug('send load process worker');
+    }
+  );
 
   # Router
   my $r = $self->routes;

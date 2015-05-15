@@ -8,6 +8,8 @@ sub post_load_request {
 
   $self->redirect_to('index') unless $self->req->body_params;
 
+  $self->minion->enqueue('send_load');
+
   $self->render( text => 'load request pending' );
 }
 
