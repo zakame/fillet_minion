@@ -3,7 +3,7 @@
 This is a spike app to help me understand the [[https://metacpan.org/pod/Minion][Minion]] job queue system.
 To run this, just do the following:
 
-#+BEGIN_SRC shell
+#+BEGIN_SRC sh
 
 # install needed dependencies (Mojolicious and Minion dists)
 cpanm --installdeps .
