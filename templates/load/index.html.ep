@@ -1,0 +1,9 @@
+% layout 'default';
+% title 'Send Load';
+<h2>Send Load</h2>
+
+%= form_for '/load' => (method => 'POST') => begin
+    %= text_field phone_number => '', placeholder => 'Phone Number...'
+    %= text_field amount => '', placeholder => 'Amount to send...'
+    %= submit_button 'Send It!'
+% end

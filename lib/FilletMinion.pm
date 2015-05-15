@@ -16,6 +16,10 @@ sub startup {
 
   # Normal route to controller
   $r->get('/')->to('example#welcome');
+
+  # Send Load route
+  $r->get('/load')->to('load#index');
+  $r->post('/load')->to('load#post_load_request');
 }
 
 1;
