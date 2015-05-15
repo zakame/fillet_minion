@@ -1,5 +1,6 @@
 package FilletMinion;
 use Mojo::Base 'Mojolicious';
+use FilletMinion::Job::SendLoad;
 
 # This method will run once at server start
 sub startup {
@@ -18,14 +19,7 @@ sub startup {
 
   # Minion job queue
   $self->plugin( Minion => { File => $self->home->rel_file('fm.db') } );
-  $self->minion->add_task(
-    send_load => sub {
-      my ( $job, $params ) = @_;
-      sleep 5;
-      $job->app->log->info( 'phone number:', $params->{phone_number} );
-      $job->app->log->info( 'amount:',       $params->{amount} );
-    }
-  );
+  $self->minion->add_task( send_load => FilletMinion::Job::SendLoad->new );
 
   # Router
   my $r = $self->routes;
