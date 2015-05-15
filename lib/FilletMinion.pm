@@ -8,15 +8,22 @@ sub startup {
   # Documentation browser under "/perldoc"
   $self->plugin('PODRenderer');
 
+  # fix up log format
+  $self->app->log->format(
+    sub {
+      my ( $log, $level, @lines ) = @_;
+      '[' . localtime($log) . '] [' . $level . '] ' . join " ", @lines, "\n";
+    }
+  );
+
   # Minion job queue
   $self->plugin( Minion => { File => $self->home->rel_file('fm.db') } );
   $self->minion->add_task(
     send_load => sub {
       my ( $job, $params ) = @_;
       sleep 5;
-      $job->app->log->debug('send load process worker');
-      $job->app->log->debug( 'phone number:', $params->{phone_number} );
-      $job->app->log->debug( 'amount:',       $params->{amount} );
+      $job->app->log->info( 'phone number:', $params->{phone_number} );
+      $job->app->log->info( 'amount:',       $params->{amount} );
     }
   );
 
