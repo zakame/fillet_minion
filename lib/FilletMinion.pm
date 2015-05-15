@@ -12,8 +12,11 @@ sub startup {
   $self->plugin( Minion => { File => $self->home->rel_file('fm.db') } );
   $self->minion->add_task(
     send_load => sub {
-      my $job = shift;
+      my ( $job, $params ) = @_;
+      sleep 5;
       $job->app->log->debug('send load process worker');
+      $job->app->log->debug( 'phone number:', $params->{phone_number} );
+      $job->app->log->debug( 'amount:',       $params->{amount} );
     }
   );
 
