@@ -1,0 +1,21 @@
+* Fillet Minion
+
+This is a spike app to help me understand the [[https://metacpan.org/pod/Minion][Minion]] job queue system.
+To run this, just do the following:
+
+#+BEGIN_SRC shell
+
+# install needed dependencies (Mojolicious and Minion dists)
+cpanm --installdeps .
+
+# in one terminal, run the webapp
+morbo ./script/fillet_minion
+
+# in another or more terminals, run the Minion workers
+./script/fillet_minion minion worker
+
+# to inspect worker/job status in another terminal
+./script/fillet_minion minion job -s
+./script/fillet_minion minion job -w
+
+#+END_SRC
